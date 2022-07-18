@@ -1,16 +1,17 @@
 import prisma from "../config/database.js";
 import { Wifi } from "@prisma/client";
 
-async function insert({userId, label, network, password}: Wifi) {
+async function insert({ userId, label, network, password }: Wifi) {
     await prisma.wifi.create({
         data: {
-            userId, 
-            label, 
-            network, 
-            password
+                userId, 
+                label, 
+                network, 
+                password
         }
     });
 }
+
 
 async function findAll({userId}: Wifi) {
     return prisma.wifi.findMany({
