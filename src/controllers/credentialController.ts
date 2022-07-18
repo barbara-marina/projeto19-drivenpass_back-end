@@ -1,9 +1,14 @@
 import { Request, Response } from "express";
 import { Credential } from "@prisma/client";
+import credentialService from "../services/credentialsService.js";
 
 async function create(req: Request, res: Response) {
-    // const body: Credential = req.body;
-    res.send("hello");
+    const credential: Credential = req.body;
+    const userId: number = res.locals.userId;
+
+    await credentialService.insert({...credential, userId})
+
+    res.sendStatus(201);
 }
 
 const credentialController = {
