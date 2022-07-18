@@ -10,5 +10,6 @@ credentialRouter.post("/credential/create", tokenMiddleware,
                     validateSchemaMiddleware(credentialSchema), credentialController.create);
 credentialRouter.get("/credential/catch", tokenMiddleware, credentialController.catchAll);
 credentialRouter.get("/credential/catch/:id", tokenMiddleware, credentialController.catchById);
+credentialRouter.delete("/credential/delete/:id", tokenMiddleware, credentialController.deleteById);
 
 export default credentialRouter;

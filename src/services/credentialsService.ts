@@ -51,9 +51,19 @@ async function checkId(userId: number, credentialUserId: number) {
     if (userId !== credentialUserId) throw errorHandler.unauthorized();
 }
 
+async function deleteById(userId: number, id: number) {
+    const credential: Credential = await credentialRepository.findById({userId, id});
+    if (!credential) throw errorHandler.unauthorized();
+    
+    await checkId(userId, credential.userId);
+    
+    await credentialRepository.deleteById({id});
+}
+
 const credentialService = {
     insert, 
     findAll, 
-    findById
+    findById, 
+    deleteById
 }
 export default credentialService;

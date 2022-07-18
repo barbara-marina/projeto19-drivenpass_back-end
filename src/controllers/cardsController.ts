@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import { Credential } from "@prisma/client";
-import credentialService from "../services/credentialsService.js";
+import { Card } from "@prisma/client";
+import cardService from "../services/cardsService.js";
 
 async function create(req: Request, res: Response) {
-    const credential: Credential = req.body;
+    const card: Card = req.body;
     const userId: number = res.locals.userId;
 
-    await credentialService.insert({...credential, userId})
+    await cardService.insert({...card, userId})
 
     res.sendStatus(201);
 }
@@ -14,33 +14,33 @@ async function create(req: Request, res: Response) {
 async function catchAll(req: Request, res: Response) {
     const userId: number = res.locals.userId;
 
-    const credentials = await credentialService.findAll(userId);
+    const cards = await cardService.findAll(userId);
 
-    res.status(201).send(credentials);
+    res.status(201).send(cards);
 }
 
 async function catchById(req: Request, res: Response) {
     const userId: number = res.locals.userId;
     const { id }= req.params;
 
-    const credential = await credentialService.findById(userId, parseInt(id));
+    const card = await cardService.findById(userId, parseInt(id));
 
-    res.status(201).send(credential);
+    res.status(201).send(card);
 }
 
 async function deleteById(req: Request, res: Response) {
     const userId: number = res.locals.userId;
     const { id }= req.params;
 
-    await credentialService.deleteById(userId, parseInt(id));
+    await cardService.deleteById(userId, parseInt(id));
 
     res.sendStatus(200);
 }
 
-const credentialController = {
+const cardController = {
     create,
     catchAll,
     catchById, 
     deleteById
 };
-export default credentialController;
+export default cardController;

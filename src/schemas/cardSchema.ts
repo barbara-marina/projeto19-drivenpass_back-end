@@ -10,7 +10,7 @@ const cardSchema = Joi.object({
     name: Joi.string().required(),
     cvv: Joi.string().max(3).min(3).required(),
     expirationDate: joiDate.date().format('MM/YY').required(),
-    password: Joi.number().min(4).max(8).required(),
+    password: Joi.number().min(4).required(),
     isVirtual: Joi.boolean().required(),
     type: Joi.valid('credit', 'debit', 'both').required(),
 });
