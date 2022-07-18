@@ -8,5 +8,7 @@ const credentialRouter = Router();
 
 credentialRouter.post("/credential/create", tokenMiddleware,
                     validateSchemaMiddleware(credentialSchema), credentialController.create);
+credentialRouter.get("/credential/catch", tokenMiddleware, credentialController.catchAll);
+credentialRouter.get("/credential/catch/:id", tokenMiddleware, credentialController.catchById);
 
 export default credentialRouter;

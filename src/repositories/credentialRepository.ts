@@ -22,8 +22,27 @@ async function findByLabelAndId({label, userId}: Credential) {
     });
 }
 
+async function findAll({userId}: Credential) {
+    return prisma.credential.findMany({
+        where: {
+            userId
+        }
+    });
+}
+
+async function findById({userId, id}: Credential) {
+    return prisma.credential.findFirst({
+        where: {
+            userId,
+            id
+        }
+    });
+}
+
 const credentialRepository = {
     insert,
-    findByLabelAndId
+    findByLabelAndId,
+    findAll,
+    findById
 };
 export default credentialRepository;
