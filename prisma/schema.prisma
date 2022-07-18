@@ -25,6 +25,7 @@ model User {
   credentials Credential[]
   secureNotes SecureNote[]
   wifis Wifi[]
+  sessions Session[]
 
   @@map("users")
 }
@@ -83,4 +84,14 @@ model Wifi {
 
   @@unique([userId, label])
   @@map("wifis")
+}
+
+model Session {
+  id Int @id @default(autoincrement())
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  token String
+  createdAt DateTime @default(now())
+
+  @@map("sessions")
 }

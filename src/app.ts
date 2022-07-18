@@ -5,7 +5,7 @@ import chalk from "chalk";
 import dotenv from "dotenv";
 
 import router from "./routes/index.js";
-import errorHandlerMiddleware from "./middlewares/errorMiddleware.js";
+import errorHandler from "./middlewares/errorMiddleware.js";
 
 dotenv.config();
 
@@ -13,7 +13,7 @@ const app = express();
 app.use(json());
 app.use(cors());
 app.use(router);
-app.use(errorHandlerMiddleware);
+app.use(errorHandler.errorHandlerMiddleware);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

@@ -1,18 +1,43 @@
 import { NextFunction, Request, Response } from "express";
 
-export default function errorHandlerMiddleware(err, req: Request, res: Response, next: NextFunction) {
-  console.log(err);
-  if(err.type) {
-    return res.sendStatus(errorTypeToStatusCode(err.type));
+const serviceErrorToStatusCode = {
+  unauthorized: 401,
+  not_found: 404,
+  conflict: 409
+};
+
+const serviceErrorToMessage = {
+  unauthorized: "Unauthorized.",
+  not_found: "Not found.",
+  conflict: "This already exists."
+};
+
+export function errorHandlerMiddleware(error: {type: string}, req: Request, res: Response, next: NextFunction) {
+  console.log(error);
+  if(error.type) {
+    return res.status(serviceErrorToStatusCode[error.type]).send(serviceErrorToMessage[error.type]);
   }
   
   return res.sendStatus(500);
 }
 
-function errorTypeToStatusCode(errorType: string) {
-  if (errorType === "conflict") return 409;
-  if (errorType === "not_found") return 404;
-  if (errorType === "unauthorized") return 401;
-  
-  return 400;
+function unauthorized() {
+  return {type: "unauthorized"};
 }
+
+function conflict() {
+  return {type: "conflict"};
+}
+
+function notFound() {
+  return {type: "not_found"};
+}
+
+const errorHandler = {
+  errorHandlerMiddleware,
+  unauthorized,
+  conflict,
+  notFound
+}
+
+export default errorHandler;
