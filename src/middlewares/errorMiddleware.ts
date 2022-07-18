@@ -2,12 +2,14 @@ import { NextFunction, Request, Response } from "express";
 
 const serviceErrorToStatusCode = {
   unauthorized: 401,
+  forbidden: 403,
   not_found: 404,
   conflict: 409
 };
 
 const serviceErrorToMessage = {
   unauthorized: "Unauthorized.",
+  forbidden: "Forbidden.",
   not_found: "Not found.",
   conflict: "This already exists."
 };
@@ -25,6 +27,10 @@ function unauthorized() {
   return {type: "unauthorized"};
 }
 
+function forbidden() {
+  return {type: "forbidden"};
+}
+
 function conflict() {
   return {type: "conflict"};
 }
@@ -36,6 +42,7 @@ function notFound() {
 const errorHandler = {
   errorHandlerMiddleware,
   unauthorized,
+  forbidden,
   conflict,
   notFound
 }
