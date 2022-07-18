@@ -82,6 +82,5 @@ model Wifi {
   password String
   createdAt DateTime @default(now())
 
-  @@unique([userId, label])
   @@map("wifis")
 }
