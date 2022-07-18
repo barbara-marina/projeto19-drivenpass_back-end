@@ -26,7 +26,7 @@ async function decryptPassword(password: string, userPassword: string) {
 }
 
 async function tokenCreater(id: number) {
-    const token = jwt.sign({id}, process.env.SECRET_JWT, {expiresIn: '2'})
+    const token = jwt.sign({id}, process.env.SECRET_JWT, {expiresIn: process.env.EXPIRESIN_JWT})
     return token
 }
 
@@ -40,8 +40,6 @@ async function login({email, password}: User) {
     if (!hash) throw errorHandler.unauthorized();
 
     const token = await tokenCreater(user.id);
-    console.log(token);
-    await authRepository.insertToken({userId: user.id, token});
     return token;
 }
 

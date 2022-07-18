@@ -1,4 +1,3 @@
-import { Session } from "@prisma/client";
 import prisma from "./../config/database.js";
 import { user } from "./../services/authService.js";
 
@@ -27,28 +26,9 @@ async function insertUser({email, password}: user) {
     });
 }
 
-async function insertToken({userId, token}: Session) {
-    await prisma.session.create({
-        data: {
-            userId,
-            token
-        }
-    });
-}
-
-async function findToken(token: string) {
-    return prisma.session.findUnique({
-        where: {
-            token
-        }
-    });
-}
-
 const authRepository = {
     findUserByEmail,
     findUserById,
-    insertUser, 
-    insertToken,
-    findToken
+    insertUser
 };
 export default authRepository;

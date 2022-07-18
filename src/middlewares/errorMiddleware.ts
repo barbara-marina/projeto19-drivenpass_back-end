@@ -15,7 +15,7 @@ const serviceErrorToMessage = {
 };
 
 export function errorHandlerMiddleware(error: {type: string}, req: Request, res: Response, next: NextFunction) {
-  console.log(error);
+  console.log("err ",error);
   if(error.type) {
     return res.status(serviceErrorToStatusCode[error.type]).send(serviceErrorToMessage[error.type]);
   }
