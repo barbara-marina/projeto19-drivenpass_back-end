@@ -5,7 +5,8 @@ import errorHandler from "../middlewares/errorMiddleware.js";
 
 async function insert(wifi: Wifi) {
     const password = await encryptPassword(wifi.password);
-    await wifiRepository.insert({...wifi, password});
+    const wifiData: Wifi = {...wifi, password};
+    await wifiRepository.insert(wifiData);
 }
 
 async function encryptPassword(password: string) {

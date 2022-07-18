@@ -4,10 +4,10 @@ import { Wifi } from "@prisma/client";
 async function insert({ userId, label, network, password }: Wifi) {
     await prisma.wifi.create({
         data: {
-                userId, 
-                label, 
-                network, 
-                password
+            userId, 
+            label, 
+            network, 
+            password
         }
     });
 }
